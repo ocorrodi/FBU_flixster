@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flixster.MovieDetailsActivity;
+import com.example.flixster.MovieTrailerActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
 
@@ -93,7 +94,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
             if (position != RecyclerView.NO_POSITION) {
                 Movie movie = movies.get(position);
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                Intent intent = new Intent(context, MovieTrailerActivity.class);
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
                 context.startActivity(intent);
             }
