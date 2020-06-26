@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -29,20 +31,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
 
         movies = new ArrayList<>();
-
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
 
         //create adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
         //set adapter on recycler view
-        rvMovies.setAdapter(movieAdapter);
+        binding.rvMovies.setAdapter(movieAdapter);
 
         //set a layout manager on the recycler view
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(URL, new JsonHttpResponseHandler() {
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "json exception", e);
                     e.printStackTrace();
                 }
-            }
+        }
 
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {

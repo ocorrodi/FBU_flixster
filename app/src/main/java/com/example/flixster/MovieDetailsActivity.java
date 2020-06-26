@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.flixster.databinding.ActivityMovieDetailsBinding;
 import com.example.flixster.models.Movie;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -27,10 +28,6 @@ import okhttp3.Headers;
 public class MovieDetailsActivity extends YouTubeBaseActivity {
 
     Movie movie;
-    TextView titleText;
-    TextView overviewText;
-    RatingBar rating;
-    ImageView bgImage;
     String URL;
     String videoId;
     public static final String YouTube_API_KEY = "AIzaSyAOVR1TlQI12Vx0ahmL_X4VVuqaEtJFtew";
@@ -39,18 +36,19 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_details);
-        titleText = findViewById(R.id.titleText);
-        overviewText = findViewById(R.id.overviewText);
-        rating = findViewById(R.id.rating);
+
+        ActivityMovieDetailsBinding binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
+
+
+        setContentView(binding.getRoot());
 
         //get the movie
         movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
 
-        titleText.setText(movie.getTitle());
-        overviewText.setText(movie.getOverview());
+        binding.titleText.setText(movie.getTitle());
+        binding.overviewText.setText(movie.getOverview());
         float voteAverage = movie.getVote_average().floatValue();
-        rating.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
+        binding.rating.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
 
 
         URL = "https://api.themoviedb.org/3/movie/" + movie.getId() + "/videos?api_key=" + MovieDB_API_KEY + "&language=en-US";

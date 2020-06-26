@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".MovieDetailsActivity">
 
     <com.google.android.youtube.player.YouTubePlayerView
@@ -35,7 +36,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="69dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/titleText"
@@ -46,6 +48,7 @@
         android:layout_marginTop="250dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="36sp" />
 
 </RelativeLayout>
