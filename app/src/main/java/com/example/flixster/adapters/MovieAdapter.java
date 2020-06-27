@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.target.Target;
 import com.example.flixster.MovieDetailsActivity;
 import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
@@ -18,6 +20,8 @@ import com.example.flixster.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
@@ -69,6 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             binding.tvOverview.setText(movie.getOverview());
             String imageURL;
             //if landscape, imageURL = back drop image
+            int radius = 30;
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 imageURL = movie.getBackdropPath();
             }
@@ -77,8 +82,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             else {
                 imageURL = movie.getPosterPath();
             }
-
-            Glide.with(context).load(imageURL).into(binding.ivPoster);
+            Glide.with(context).load(imageURL)
+                    .transform(new RoundedCorners(radius))
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .into(binding.ivPoster);
         }
 
         @Override
